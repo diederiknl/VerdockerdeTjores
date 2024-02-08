@@ -14,6 +14,8 @@
 
 - Docker en VENV kan je oplossen via https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
 
+- Done! Deze configuratie werkt met docker. Maar nu die rare environment variable...
+
 # Kladblok:
 
 Navigeer naar de main folder in het project. <br/>
