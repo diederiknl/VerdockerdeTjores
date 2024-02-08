@@ -10,6 +10,8 @@
 
 - We moeten die API-Key hebben. We disablen die door de lijn bij generate weg te halen.
 
+- Yay! We hebben een werkende flask op poort 5000. Nu naar docker toe...
+
 # Kladblok:
 
 Navigeer naar de main folder in het project. <br/>
