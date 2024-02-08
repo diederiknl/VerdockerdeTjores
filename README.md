@@ -1,1 +1,3 @@
-# Dit is een copie van een studentenrepository. Ik wil laten zien hoe je een app kan verDockeren :)
+# Deze versie wil een werkende python in Docker bieden.
+
+- python3 -m venv venv geeft een virtual environment
