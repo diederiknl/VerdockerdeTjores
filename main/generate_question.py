@@ -1,6 +1,6 @@
 from database_functions import insert_question_into_database
 from lib.testgpt.testgpt import TestGPT
-from apikey import api_key
+# from apikey import api_key
 
 
 def generate_question(note, note_id, form):
