@@ -12,6 +12,8 @@
 
 - Yay! We hebben een werkende flask op poort 5000. Nu naar docker toe...
 
+- Docker en VENV kan je oplossen via https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+
 # Kladblok:
 
 Navigeer naar de main folder in het project. <br/>
