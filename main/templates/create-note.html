@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Notitie aanmaken{% endblock %}
+
+{% block head %}
+{% set show_navigation = true %}
+<link href="{{ url_for('static', filename='css/create-edit-note.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='javascript/script.js') }}"></script>
+{% endblock %}
+{% block content %}
+<h1 class="text-center">Notitie aanmaken</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 mb-2">
+            <a href="{{ url_for('notes.notes_overview') }}">
+                <button class="btn btn-danger"><i class="fa-solid fa-circle-chevron-left"></i> <span>| Terug</span>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row form-box">
+        <form action="{{ url_for('notes.insert') }}" method="post">
+            <div class="input-group">
+                <div class="col-6 pe-2">
+                    <label for="note-title" class="form-label">Titel</label>
+                    <input type="text" class="form-control" name="note-title" id="note-title"
+                           placeholder="Titel van de notitie" required>
+                </div>
+                <div class="col-6 ps-2">
+                    <label for="note-source" class="form-label">Bron</label>
+                    <input type="text" class="form-control" name="note-source" id="note-source"
+                           placeholder="Bron van de notitie" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="col-12">
+                    <label for="note-text" class="form-label">Notitie</label>
+                    <textarea class="form-control" name="note-text" id="note-text" placeholder="Notitie" required></textarea>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="form-check form-switch">
+                    <label for="categorySwitch" class="form-check-label">Categorie toevoegen</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="categorySwitch"
+                           name="categorySwitch">
+                </div>
+                {% for category in categories %}
+                <div class="form-check ms-4 category-checkbox">
+                    <input class="form-check-input" type="checkbox" value="{{ category[0] }}"
+                           id="{{ category[0] }}"
+                           name="note-category">
+                    <label class="form-check-label" for="{{ category[0] }}">{{ category[0] }}</label>
+                </div>
+                {% endfor %}
+                <div class="form-check ms-4 category-checkbox">
+                    <input class="form-check-input" type="checkbox" value="{{ checked_category }}"
+                           id="{{ checked_category }}"
+                           name="note-category" checked>
+                    <label class="form-check-label" for="{{ checked_category }}">{{ checked_category }}</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <div id="category-input">
+                    <label for="note-category-text" class="form-label">Categorie</label>
+                    <input type="text" class="form-control" id="note-category-text" name="note-category-text"
+                           placeholder="Categorie van de notitie">
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="form-check form-switch ms-4">
+                    <label for="publicSwitch" class="form-check-label">Publiekelijk toegankelijk</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="publicSwitch"
+                           name="publicSwitch" checked>
+                </div>
+
+            </div>
+            <div class="input-group text-right">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

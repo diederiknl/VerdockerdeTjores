@@ -1,0 +1,10 @@
+.note-box {
+    border: black 1px solid;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+button{
+    margin-top: 10px;
+    text-decoration: none;
+}

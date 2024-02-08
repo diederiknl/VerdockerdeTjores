@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% set show_navigation = true %}
+{% block title %}Nieuwe gebruiker aanmaken{% endblock %}
+{% block head %}
+<link href="{{ url_for('static', filename='css/create-edit-note.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<h1 class="text-center">Nieuwe gebruiker aanmaken</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="{{ url_for('admin.admin_page') }}">
+                <button class="btn btn-danger"><i class="fa-solid fa-circle-chevron-left"></i> <span>| Terug</span>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row form-box">
+    <form action="{{ url_for('admin.insert_account') }}" method="post">
+        <div class="col-6 pe-2">
+            <label for="name-teacher" class="form-label">Naam docent</label>
+            <input type="text" class="form-control"
+                   name="name-teacher" id="name-teacher" value="{{ request.form['name-teacher'] }}"
+                   placeholder="Vul hier de naam van de nieuwe gebruiker in">
+            {% if name_error and request.form['name-teacher']|length < 3 %}
+                <p style="color: red;">Naam moet minimaal 3 tekens bevatten</p>
+            {% endif %}
+        </div>
+
+        <div class="col-6 ps-2">
+            <label for="username-teacher" class="form-label">Gebruikersnaam</label>
+            <input type="text" class="form-control"
+                   name="username-teacher" id="username-teacher"
+                   placeholder="Vul hier een gebruikersnaam voor de nieuwe gebruiker in" value="{{ request.form['username-teacher'] }}">
+            {% if username_error and request.form['username-teacher']|length < 3 %}
+                <p style="color: red;">Gebruikersnaam moet minimaal 3 tekens bevatten</p>
+            {% endif %}
+        </div>
+
+        <div class="col-6 ps-2">
+            <label for="password-teacher" class="form-label">Wachtwoord</label>
+            <input type="password" class="form-control"
+                   name="password-teacher" id="password-teacher"
+                   placeholder="Vul hier een wachtwoord voor de nieuwe gebruiker in">
+            {% if password_error and request.form['password-teacher']|length < 3 %}
+                <p style="color: red;">Wachtwoord moet minimaal 3 tekens bevatten</p>
+            {% endif %}
+        </div>
+
+        <div class="col-6 ps-2">
+            <div class="form-check ms-4 form-switch">
+                <input class="form-check-input" type="checkbox" id="admin-teacher"
+                       name="admin-teacher" role="switch">
+                <label class="form-check-label" for="admin-teacher">Admin</label>
+            </div>
+        </div>
+
+        <div class="input-group text-right">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </div>
+    </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% set show_navigation = false %}
+{% block title %}Inloggen{% endblock %}
+{% block content %}
+
+<h1 class="row justify-content-center">Login Docenten</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card">
+              <div class="card-body">
+                <form method="POST">
+                  <div class="form-group">
+                      <label for="username">Gebruikersnaam</label>
+                      <input type="text" name="name" class="form-control" placeholder="Gebruikersnaam" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Wachtwoord</label>
+                      <input type="password" name="password" class="form-control" placeholder="Wachtwoord" required>
+                  </div>
+                    <br>
+                  <div class="messagesbox">
+                    {% for message in get_flashed_messages() %}
+                      <div class="alert alert-danger" role="alert">{{ message }}</div>
+                    {% endfor %}
+                  </div>
+                  <input class="btn btn-primary" type="submit" name="submit" value="Inloggen">
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

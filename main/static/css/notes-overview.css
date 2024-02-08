@@ -1,0 +1,29 @@
+.margin_bottom {
+    margin-bottom: 20px;
+}
+.margin_top {
+    margin-top: 20px;
+}
+.pagesbutton:link, .pagesbutton:visited {
+    background-color: #004DF5;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;
+  }
+  
+.pagesbutton:hover, .pagesbutton:active {
+    background-color: blue;
+  }
+
+.CSV_button{
+    background-color: #004DF5;
+    color: white;
+    width: 200px;
+    height: 50px;
+    
+
+
+}

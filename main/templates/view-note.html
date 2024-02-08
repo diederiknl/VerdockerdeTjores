@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% set show_navigation = true %}
+{% block title %}Notities bekijken{% endblock %}
+{% block head %}
+<link href="{{ url_for('static', filename='css/view-note.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='javascript/script.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 mb-2">
+            <a href="{{ url_for('notes.notes_overview') }}">
+                <button class="btn btn-danger"><i class="fa-solid fa-circle-chevron-left"></i> <span>| Terug</span>
+                </button>
+            </a>
+            <a href="{{ url_for('notes.export_note_csv', note_id=note_id)  }}">
+                <button class="btn btn-primary">Exporteer notitie naar CSV</span>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <h1 class="text-center margin_bottom margin_top">Notitie Bekijken</h1>
+
+    <div class="row note-box">
+        <div class="col-4">
+            <p class="note-title"><span class="fw-bold">Titel:</span> {{ note['title'] }}</p>
+        </div>
+        <div class="col-4">
+            <p class="note-source"><span class="fw-bold">Bron:</span>
+                <script>
+                    checkAndDisplayLink("{{ note['note_source'] }}");
+                </script>
+            </p>
+        </div>
+        <div class="col-4">
+            <p class="note-category"><span class="fw-bold">Categorie:</span> {{ category_data }}</p>
+        </div>
+        <div class="col-4">
+            <p class="note-teacher"><span class="fw-bold">Docent:</span> {{ teacher_data }}</p>
+        </div>
+        <div class="col-4">
+            <p class="note-public"><span class="fw-bold">Publiekelijk beschikbaar:</span>
+                {% if note["is_public"] == 1 %}
+                Ja
+                {% else %}
+                Nee
+                {% endif %}</p>
+        </div>
+        <div class="col-12">
+            <p class="note-data"><span class="fw-bold">Notitie:</span> {{ note['note'] }}</p>
+        </div>
+        <div class="col-12">
+            {% for question in questions %}
+            <p class="questions"><span class="fw-bold">Vraag:</span> {{ question[0] }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function exportNoteToCSV() {
+        var note_id = "{{ note_id }}";  // Replace this with the correct variable holding note_id
+
+        // Show loading indicator
+        document.getElementById('exportLoading').style.display = 'inline';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "{{ url_for('notes.export_note_csv', note_id=note_id) }}", true);
+        xhr.responseType = 'blob';
+
+        xhr.onload = function () {
+            // Hide loading indicator
+            document.getElementById('exportLoading').style.display = 'none';
+
+            var blob = new Blob([xhr.response], {type: 'text/csv'});
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'export_note_csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        xhr.send();
+    }
+</script>
+
+{% endblock %}

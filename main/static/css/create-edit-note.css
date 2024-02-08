@@ -1,0 +1,17 @@
+.form-box {
+    border: black 1px solid;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+#note-text {
+    height: 100px;
+}
+
+#category-input {
+    display: none;
+}

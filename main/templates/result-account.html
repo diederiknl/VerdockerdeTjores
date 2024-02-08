@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% set show_navigation = true %}
+{% block title %}
+Transaction Result
+{% endblock %}
+{% block content %}
+<div class="container">
+    <p>Het resultaat van het opslaan van de gebruiker: {{ msg }}</p>
+    <a class="btn btn-primary" href="{{ url_for('admin.admin_page') }}" role="button">Terug naar overzicht</a>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% set show_navigation = true %}
+{% block title %}Notities overzicht{% endblock %}
+{% block head %}
+<link href="{{ url_for('static', filename='css/notes-overview.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='javascript/script.js') }}"></script>
+{% endblock %}
+{% block content %}
+
+
+<h1 class="text-center margin_bottom margin_top">Notities Bekijken</h1>
+<div class="nav nav-pills">
+    <button class="nav-link active " onclick=" downloadCSV()">Exporteer alle notities naar CSV</button>
+</div>
+<br><br>
+<h4 class="margin_bottom">Welkom, {{ session.display_name }}!</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8"><input class="form-control margin_bottom" id="myInput" type="text"
+                                     placeholder="zoeken..."></div>
+        <div class="col-sm-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="publicSwitchFilter">
+                <label class="form-check-label" for="publicSwitchFilter">Prive</label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="teacherSwitchFilter">
+                <label class="form-check-label" for="teacherSwitchFilter">Alle Docenten</label>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <p><a href=create-note>
+                <button class="btn btn-dark"><i class="fa-solid fa-circle-plus"></i></button>
+            </a></p>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class="th-lg">Titel</th>
+                <th scope="col">Bron</th>
+                <th scope="col">Notitie</th>
+                <th scope="col">Leraar</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Prive</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Bewerken</th>
+                <th scope="col">Verwijderen</th>
+                <th scope="col">CSV</th>
+            </tr>
+            </thead>
+            <tbody id="myTable">
+            {% for row in items_on_page %}
+            <tr class='clickable-row' data-href="{{ url_for('notes.view_note', note_id=row['note_id']) }}">
+                <td>{{row["title"]}}</td>
+                <td>{{row["note_source"]}}</td>
+                <td>{{row["note"]}}</td>
+                <td>{{row["display_name"]}}</td>
+                <td>{{row["omschrijving"]}}</td>
+                <td>
+                {% if row["is_public"] == 1 %}
+                    Nee
+                {% else %}
+                    Ja
+                {% endif %}</td>
+                <td>{{row["date_created"]}}</td>
+                <td>
+                    <form method="post" action="{{ url_for('notes.edit_note', note_id=row['note_id']) }}">
+                        <button class="btn btn-dark"><i class="fa-solid fa-pen"></i></button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{{ url_for('notes.delete', note_id=row['note_id']) }}">
+                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
+
+                <td>
+                    <form method="get" action="{{ url_for('notes.export_note_csv', note_id=row['note_id']) }}">
+                        <button class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
+                    </form>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if page > 1 %}
+    <a class='pagesbutton' href="{{ url_for('notes.notes_overview', page=page-1) }}">Vorige</a>
+    {% endif %}
+    <span>Pagina: {{page}} of {{total_pages}}</span>
+    {% if page < total_pages %}
+    <a class='pagesbutton' href="{{ url_for('notes.notes_overview', page=page+1) }}">Volgende</a>
+    {% endif %}
+</div>
+{% endblock %}
