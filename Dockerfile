@@ -20,6 +20,6 @@ COPY . .
 # Starten
 
 #CMD . /app/venv/bin/activate && exec python /app/main/app.py
-CMD python /app/main/app.py
+CMD python /app/main/app.py 0.0.0.0:5000
 
 EXPOSE 5000:5000
