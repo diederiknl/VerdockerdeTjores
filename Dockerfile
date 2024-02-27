@@ -1,7 +1,8 @@
 FROM python:latest
 
 # Basis updaten
-RUN apt update && apt upgrade
+RUN apt update
+RUN apt upgrade -y
 
 # Werkdirectory bepalen
 WORKDIR /app
